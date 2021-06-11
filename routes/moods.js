@@ -1,6 +1,9 @@
 // PET ROUTES
 let request = require('request')
+var moodArr = []
 var weatherArr = []
+var weatherMoodArr = []
+var day = ""
 
 
 module.exports = (app) => {
@@ -10,11 +13,11 @@ module.exports = (app) => {
     app.get('/moods-create', (req, res) => {
         
      
-        res.render('moods-create');
+        res.render('moods-create', {weatherMoodArr, day});
     });
 
     app.get('/', (req, res) => {
-      res.render('moods-index');
+      res.render('moods-index', {weatherMoodArr});
     });
   
     // CREATE PET
@@ -26,19 +29,23 @@ module.exports = (app) => {
         if(err){
           console.log('error:', error);
         } else {
-          let weather = JSON.parse(body)
+          var weather = JSON.parse(body)
           
           days = weather.daily
           for (i=0; i<days.length; i++){
             console.log(days[i]["dt"])
             console.log(days[i]['weather'][0]['description'])
-            const dateObject = new Date(days[i]["dt"])
-            const humanDateFormat = dateObject.toLocaleString() 
+            var dateObject = new Date(days[i]["dt"]*1000)
             console.log(dateObject.toLocaleString("en-US", {timeZoneName: "short"}))
+            mnth=dateObject.toLocaleString("en-US", {month: "numeric"})
+            dy=dateObject.toLocaleString("en-US", {day: "numeric"}) 
+            yr=dateObject.toLocaleString("en-US", {year: "numeric"})
+            console.log(mnth+"/"+dy+"/"+yr)
           }
         }
       });
-  
+      weatherMoodArr.push(23432)
+      //res.send()
       res.redirect(`/`);
 
 
