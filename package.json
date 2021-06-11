@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Aetrix27/Mood-Weather-App#readme",
   "dependencies": {
     "express-handlebars": "^5.3.2",
-    "openweather-apis": "^4.4.1"
+    "openweather-apis": "^4.4.1",
+    "request": "^2.88.2"
   }
 }
