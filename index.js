@@ -5,7 +5,6 @@ const app = express();
 const path = require("path");
 port = 3000
 
-
 app.engine('handlebars', exphbs({
     layoutsDir: __dirname + '/views/layouts',
     defaultLayout: 'main'
@@ -13,6 +12,13 @@ app.engine('handlebars', exphbs({
   
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
+
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
 
 require('./routes/moods.js')(app);
 

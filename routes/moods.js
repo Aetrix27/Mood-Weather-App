@@ -3,23 +3,26 @@ let request = require('request')
 var moodArr = []
 var weatherArr = []
 var weatherMoodArr = []
-var day = ""
+var selectedDate = ""
 
 
 module.exports = (app) => {
-
-    // INDEX PET => index.js
-    // NEW PET
-    app.get('/moods-create', (req, res) => {
-        
+    app.get('/moods-create', (req, res) => {  
      
-        res.render('moods-create', {weatherMoodArr, day});
+        res.render('moods-create', {weatherMoodArr});
     });
 
     app.get('/', (req, res) => {
       res.render('moods-index', {weatherMoodArr});
     });
-  
+
+    app.post('/', (req, res) => {
+      console.log(req.body.date)
+      selectedDate = req.body.date
+
+      res.redirect(`/moods-create`);
+    });
+
     // CREATE PET
     app.post('/moods-create', (req, res) => {
 
@@ -33,17 +36,21 @@ module.exports = (app) => {
           
           days = weather.daily
           for (i=0; i<days.length; i++){
-            console.log(days[i]["dt"])
             console.log(days[i]['weather'][0]['description'])
             var dateObject = new Date(days[i]["dt"]*1000)
-            console.log(dateObject.toLocaleString("en-US", {timeZoneName: "short"}))
             mnth=dateObject.toLocaleString("en-US", {month: "numeric"})
             dy=dateObject.toLocaleString("en-US", {day: "numeric"}) 
             yr=dateObject.toLocaleString("en-US", {year: "numeric"})
             console.log(mnth+"/"+dy+"/"+yr)
+            var formattedDate=mnth+"/"+dy+"/"+yr
+            if(selectedDate == formattedDate){
+              console.log("THEY ARE THE SAME")
+            }
           }
+
         }
       });
+
       weatherMoodArr.push(23432)
       //res.send()
       res.redirect(`/`);
