@@ -1,10 +1,10 @@
 <div>
   <label for="weather">Here is the weather:</label>
     <form action="/moods-create" method="post">
-      <legend>New Card</legend>    
     <label>Choose a mood:</label>
     <h1>{{weatherMoodArr}}</h1>
-
+    <h1>{{dayWeather}}</h1>
+    <h2>How are you feeling today?</h2>
     <select name="moods" id="moods" action="/moods-show" method="post">
         <option value="happy">happy</option>
         <option value="sad">sad</option>
