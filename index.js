@@ -14,9 +14,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded());
 
 // Parse JSON bodies (as sent by API clients)
+app.use(express.urlencoded({extended: true})); 
+
 app.use(express.json());
 
 
