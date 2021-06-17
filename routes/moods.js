@@ -1,5 +1,6 @@
-// PET ROUTES
+// ROUTES
 let request = require('request')
+require('dotenv').config()
 
 var weatherMoodArr = []
 var selectedDate = ""
@@ -9,7 +10,7 @@ var dayWeather = ""
 
 module.exports = (app) => {
     app.get('/moods-create', (req, res) => {  
-        let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=34.0953&lon=118.1270&exclude={part}&appid=0ac789480808bd58c4f6f76ca2a66e11'
+        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=34.0953&lon=118.1270&exclude={part}&appid=${process.env.API_KEY}`
 
         request(url, function (err, response, body) {
           if(err){
@@ -48,7 +49,7 @@ module.exports = (app) => {
       res.redirect(`/moods-create`);
     });
 
-    // CREATE PET
+    // CREATE mood
     app.post('/moods-create', (req, res) => {
       mood = req.body.moods
       weatherMoodArr.push([mood, dayWeather, selectedDate])
